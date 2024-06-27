@@ -1,0 +1,75 @@
+# ------------------------------------------------------------ Pipeline------------------------------------------------------------
+kind: pipeline
+type: docker
+name: Taimi-Login
+
+clone:
+  disable: true
+
+steps:
+  - name: Clone
+    image: alpine/git
+    environment:
+      CREDS:
+        from_secret: creds
+    commands:
+      - git -c http.sslVerify=false clone -b $DRONE_COMMIT_BRANCH https://$CREDS@git.dision.office/taimi/taimi-login.git
+    when:
+      event: 
+        - push
+
+  - name: Prebuildd & Build
+    image: node:18-alpine
+    commands:
+      - cd taimi-login
+      - yarn install
+      - yarn build
+    depends_on:
+      - Clone
+    when:
+      event: 
+        - push
+
+  - name: Transfer to HV01
+    image: drillster/drone-rsync
+    settings:
+      hosts:
+        from_secret: hv01-host
+      user:
+        from_secret: hv01-user
+      key:
+        from_secret: hv01-key
+      source: /drone/src/taimi-login/build/
+      target: /data/shared/taimi-login/
+      recursive: true
+      delete: true
+    depends_on:
+      - Prebuildd & Build
+    when:
+      event: 
+        - push
+
+node:
+  proxmox: docker-runner01
+
+---
+kind: pipeline
+type: exec
+name: Notification
+
+clone:
+  disable: true
+
+steps:
+  - name: Notification
+    commands:
+      - /home/runner/drone-report/prepost.py "$DRONE_REPO" "$DRONE_BUILD_NUMBER" "$DRONE_COMMIT_BRANCH" "$DRONE_COMMIT" "$DRONE_COMMIT_AUTHOR_NAME" "$DRONE_BUILD_STATUS" | /home/runner/drone-report/zulip
+
+depends_on:
+  - Taimi-Login
+trigger:
+  status:
+    - success
+    - failure
+  event:
+    - push
