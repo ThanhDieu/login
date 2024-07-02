@@ -12,4 +12,4 @@ const Page: React.FC = () => {
   );
 };
 
-export default withHelmet({ title: 'Taimi - Password Reset' }, Page);
+export default withHelmet({ title: 'TM - Password Reset' }, Page);

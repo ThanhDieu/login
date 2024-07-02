@@ -20,4 +20,4 @@ const LoginPage: React.FC = () => {
     </MainLayout>
 };
 
-export default withHelmet({ title: 'Taimi - Login' }, LoginPage);
+export default withHelmet({ title: 'TM - Login' }, LoginPage);

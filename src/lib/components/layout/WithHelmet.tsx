@@ -7,7 +7,7 @@ export interface HelmetMeta {
 }
 
 function withHelmet<P = any>(
-    { title, description = 'Default Taimi page description' }: HelmetMeta,
+    { title, description = 'Default TM page description' }: HelmetMeta,
     Page: FC<P>
 ): FC<P> {
     const PageWithHelmet = (props: P) => (

@@ -1,6 +1,6 @@
-# Taimi Login Page
+# TM Login Page
 
-This repository contains the source code for the Taimi Login Page, which serves as a login and password reset interface for another entity.
+This repository contains the source code for the TM Login Page, which serves as a login and password reset interface for another entity.
 
 ## Technologies Used
 - **React**: A JavaScript library for building user interfaces.
@@ -13,12 +13,12 @@ To get a local copy of the project up and running, follow these steps:
 
 1. **Clone the Repository:**
     ```bash
-    git clone https://git.dision.office/taimi/taimi-login.git
+    git clone https://git.dision.office/tm/tm-login.git
     ```
    
 2. **Install Dependencies:**
     ```bash
-    cd taimi-login
+    cd tm-login
     npm install
     ```
 
@@ -31,7 +31,7 @@ To get a local copy of the project up and running, follow these steps:
     ```
 
 ## Usage
-Once the development server is running, navigate to the appropriate URL in your browser to access the Taimi Login Page. Follow the on-screen instructions for logging in or resetting your password.
+Once the development server is running, navigate to the appropriate URL in your browser to access the TM Login Page. Follow the on-screen instructions for logging in or resetting your password.
 
 ## Contributing
 Contributions are welcome! If you find any issues or have suggestions for improvement, please open an issue or submit a pull request.

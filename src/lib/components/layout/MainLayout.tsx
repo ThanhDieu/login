@@ -25,7 +25,7 @@ const MainLayout: React.FC<IMainLayoutProps> = ({ children }) => {
         </Content>
         <div className="text-center">
             <Typography.Text type='secondary'>
-                2024 Taimi, All rights reserved
+                2024 TM, All rights reserved
             </Typography.Text>
         </div>
     </Layout>

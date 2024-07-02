@@ -1,7 +1,7 @@
 import { ITenantType } from "types";
 
 const config = {
-  prefix: 'TAIMI',
+  prefix: 'TM',
   accessToken: 'ACCESS_TOKEN',
   refreshToken: 'REFRESH_TOKEN',
   tenantId: 'TENANT',

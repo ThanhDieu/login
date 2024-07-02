@@ -1,7 +1,7 @@
 # ------------------------------------------------------------ Pipeline------------------------------------------------------------
 kind: pipeline
 type: docker
-name: Taimi-Login
+name: TM-Login
 
 clone:
   disable: true
@@ -13,7 +13,7 @@ steps:
       CREDS:
         from_secret: creds
     commands:
-      - git -c http.sslVerify=false clone -b $DRONE_COMMIT_BRANCH https://$CREDS@git.dision.office/taimi/taimi-login.git
+      - git -c http.sslVerify=false clone -b $DRONE_COMMIT_BRANCH https://$CREDS@git.dision.office/tm/tm-login.git
     when:
       event: 
         - push
@@ -21,7 +21,7 @@ steps:
   - name: Prebuildd & Build
     image: node:18-alpine
     commands:
-      - cd taimi-login
+      - cd tm-login
       - yarn install
       - yarn build
     depends_on:
@@ -39,8 +39,8 @@ steps:
         from_secret: hv01-user
       key:
         from_secret: hv01-key
-      source: /drone/src/taimi-login/build/
-      target: /data/shared/taimi-login/
+      source: /drone/src/tm-login/build/
+      target: /data/shared/tm-login/
       recursive: true
       delete: true
     depends_on:
@@ -66,7 +66,7 @@ steps:
       - /home/runner/drone-report/prepost.py "$DRONE_REPO" "$DRONE_BUILD_NUMBER" "$DRONE_COMMIT_BRANCH" "$DRONE_COMMIT" "$DRONE_COMMIT_AUTHOR_NAME" "$DRONE_BUILD_STATUS" | /home/runner/drone-report/zulip
 
 depends_on:
-  - Taimi-Login
+  - TM-Login
 trigger:
   status:
     - success
